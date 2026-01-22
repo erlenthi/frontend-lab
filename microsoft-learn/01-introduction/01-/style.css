@@ -1,5 +1,8 @@
-/* Basic styling for resume page */
+/* Basic styling for resume page 
 
+
+
+*/
 body {
   font-family: Arial, sans-serif;
   max-width: 800px;
@@ -7,6 +10,7 @@ body {
   padding: 20px;
   background-color: #f5f5f5;
   line-height: 1.6;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 h1 {
@@ -16,13 +20,25 @@ h1 {
   margin-top: 30px;
 }
 
+.divTest {
+  background-color: #e3f2fd;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #007bff;
+  margin: 20px 0;
+    font-size: 0.5em;
+}
+
 a {
   color: #007bff;
   text-decoration: none;
 }
 
+/* Link hover effect */
+
 a:hover {
   text-decoration: underline;
+  
 }
 
 img {
@@ -33,9 +49,31 @@ img {
 }
 
 ul {
-  list-style-type: square;
-  padding-left: 20px;
+    list-style-type: square;
+    padding-left: 20px;
+/* 
+ * Font size units explained:
+ * - rcap: A CSS length unit equal to the cap-height of the root element's font.
+ *         Cap-height is the height of capital letters in a typeface.
+ *         Note: "rcap" should be used instead of "rcap" in the original code.
+ * - em: A relative CSS length unit equal to the computed font-size of the element's parent.
+ *       For example, if parent font-size is 16px, then 1em = 16px, 2em = 32px, etc.
+ *       When used on font-size property itself, 1em equals the inherited font-size.
+ * - rem: Relative to the root element's font-size (usually <html>). More predictable than em.
+ * - px: Absolute pixel unit. Fixed size regardless of parent or root settings.
+ * - %: Percentage relative to the parent element's font-size.
+ * - vw/vh: Viewport width/height units. 1vw = 1% of viewport width, 1vh = 1% of viewport height.
+ * - ch: Equal to the width of the "0" (zero) character in the element's font.
+ * - ex: Equal to the x-height of the element's font (height of lowercase "x").
+ * - cap: Like rcap but relative to the current element's font, not the root.
+ * - ic: Equal to the width of the "水" (CJK water ideograph) in the element's font.
+ * - lh: Equal to the computed line-height of the element.
+ * - rlh: Equal to the line-height of the root element.
+ */
+
 }
+
+
 
 li {
   margin: 8px 0;
