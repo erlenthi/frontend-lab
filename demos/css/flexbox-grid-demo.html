@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexbox & Grid Layout Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+            margin: 0;
+        }
+
+        /* Control Panel */
+        .control-panel {
+            position: sticky;
+            top: 0;
+            background-color: #2c3e50;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .control-panel h3 {
+            color: white;
+            margin: 0;
+            font-size: 16px;
+            flex: 0 0 100%;
+        }
+
+        .control-btn {
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .control-btn.active {
+            background-color: #27ae60;
+            color: white;
+        }
+
+        .control-btn.inactive {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        /* Box model outline styles */
+        body.show-outlines * {
+            outline: 2px solid rgba(255, 0, 0, 0.5) !important;
+            outline-offset: -1px;
+        }
+
+        body.show-outlines *:hover {
+            outline: 2px solid rgba(0, 255, 0, 0.8) !important;
+        }
+
+        /* Border toggle */
+        body.hide-borders .flex-item,
+        body.hide-borders .grid-item,
+        body.hide-borders .combo-item {
+            border: none !important;
+        }
+
+        /* Background toggle */
+        body.hide-backgrounds .flex-item,
+        body.hide-backgrounds .grid-item,
+        body.hide-backgrounds .combo-item {
+            background: transparent !important;
+        }
+
+        /* Section styling */
+        .section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .section-description {
+            color: #555;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        /* Flexbox Container */
+        .flex-container {
+            display: flex;
+            gap: 10px;
+            padding: 20px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .flex-container.row {
+            flex-direction: row;
+        }
+
+        .flex-container.column {
+            flex-direction: column;
+        }
+
+        .flex-container.wrap {
+            flex-wrap: wrap;
+        }
+
+        .flex-container.space-between {
+            justify-content: space-between;
+        }
+
+        .flex-container.space-around {
+            justify-content: space-around;
+        }
+
+        .flex-container.center {
+            justify-content: center;
+        }
+
+        .flex-container.align-center {
+            align-items: center;
+        }
+
+        .flex-container.align-stretch {
+            align-items: stretch;
+        }
+
+        .flex-item {
+            background-color: #3498db;
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            border: 2px solid #2980b9;
+        }
+
+        .flex-item.grow {
+            flex-grow: 1;
+        }
+
+        .flex-item.shrink {
+            flex-shrink: 0;
+        }
+
+        /* Grid Container */
+        .grid-container {
+            display: grid;
+            gap: 10px;
+            padding: 20px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .grid-container.two-col {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .grid-container.three-col {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .grid-container.auto-fit {
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        }
+
+        .grid-container.template-areas {
+            grid-template-columns: 1fr 2fr 1fr;
+            grid-template-rows: auto 1fr auto;
+            grid-template-areas:
+                "header header header"
+                "sidebar content aside"
+                "footer footer footer";
+        }
+
+        .grid-item {
+            background-color: #e74c3c;
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            border: 2px solid #c0392b;
+        }
+
+        .grid-item.header {
+            grid-area: header;
+            background-color: #9b59b6;
+            border-color: #8e44ad;
+        }
+
+        .grid-item.sidebar {
+            grid-area: sidebar;
+            background-color: #1abc9c;
+            border-color: #16a085;
+        }
+
+        .grid-item.content {
+            grid-area: content;
+            background-color: #3498db;
+            border-color: #2980b9;
+        }
+
+        .grid-item.aside {
+            grid-area: aside;
+            background-color: #f39c12;
+            border-color: #e67e22;
+        }
+
+        .grid-item.footer {
+            grid-area: footer;
+            background-color: #34495e;
+            border-color: #2c3e50;
+        }
+
+        .grid-item.span-2 {
+            grid-column: span 2;
+        }
+
+        /* Combined Layout */
+        .combo-container {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 20px;
+            padding: 20px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+        }
+
+        .combo-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .combo-main {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .combo-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .combo-item {
+            background-color: #95a5a6;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            border: 2px solid #7f8c8d;
+        }
+
+        .combo-item.nav {
+            background-color: #2c3e50;
+            border-color: #34495e;
+        }
+
+        .combo-item.card {
+            background-color: #3498db;
+            border-color: #2980b9;
+        }
+
+        .combo-item.header {
+            background-color: #e74c3c;
+            border-color: #c0392b;
+        }
+
+        .property-label {
+            display: inline-block;
+            background-color: #34495e;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-bottom: 10px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .demo-group {
+            margin-bottom: 30px;
+        }
+
+        .demo-title {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Control Panel -->
+    <div class="control-panel">
+        <h3>Demo Controls</h3>
+        <button class="control-btn inactive" onclick="toggleOutlines(this)">Show Outlines</button>
+        <button class="control-btn inactive" onclick="toggleBorders(this)">Hide Borders</button>
+        <button class="control-btn inactive" onclick="toggleBackgrounds(this)">Hide Backgrounds</button>
+    </div>
+
+    <!-- Flexbox Section -->
+    <div class="section">
+        <h2>1. Flexbox Layout</h2>
+        <p class="section-description">Flexbox is ideal for one-dimensional layouts (rows or columns) with flexible sizing and alignment.</p>
+
+        <!-- Basic Flex Row -->
+        <div class="demo-group">
+            <h3 class="demo-title">Basic Flex Row</h3>
+            <span class="property-label">display: flex</span>
+            <div class="flex-container row">
+                <div class="flex-item">Item 1</div>
+                <div class="flex-item">Item 2</div>
+                <div class="flex-item">Item 3</div>
+            </div>
+        </div>
+
+        <!-- Flex Column -->
+        <div class="demo-group">
+            <h3 class="demo-title">Flex Column</h3>
+            <span class="property-label">flex-direction: column</span>
+            <div class="flex-container column">
+                <div class="flex-item">Item 1</div>
+                <div class="flex-item">Item 2</div>
+                <div class="flex-item">Item 3</div>
+            </div>
+        </div>
+
+        <!-- Justify Content -->
+        <div class="demo-group">
+            <h3 class="demo-title">Space Between</h3>
+            <span class="property-label">justify-content: space-between</span>
+            <div class="flex-container row space-between">
+                <div class="flex-item">Left</div>
+                <div class="flex-item">Center</div>
+                <div class="flex-item">Right</div>
+            </div>
+        </div>
+
+        <!-- Flex Grow -->
+        <div class="demo-group">
+            <h3 class="demo-title">Flex Grow</h3>
+            <span class="property-label">flex-grow: 1</span>
+            <div class="flex-container row">
+                <div class="flex-item">Fixed</div>
+                <div class="flex-item grow">Grows to fill space</div>
+                <div class="flex-item">Fixed</div>
+            </div>
+        </div>
+
+        <!-- Flex Wrap -->
+        <div class="demo-group">
+            <h3 class="demo-title">Flex Wrap</h3>
+            <span class="property-label">flex-wrap: wrap</span>
+            <div class="flex-container row wrap">
+                <div class="flex-item">Item 1</div>
+                <div class="flex-item">Item 2</div>
+                <div class="flex-item">Item 3</div>
+                <div class="flex-item">Item 4</div>
+                <div class="flex-item">Item 5</div>
+                <div class="flex-item">Item 6</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grid Section -->
+    <div class="section">
+        <h2>2. Grid Layout</h2>
+        <p class="section-description">Grid is ideal for two-dimensional layouts with precise control over rows and columns.</p>
+
+        <!-- Basic Grid -->
+        <div class="demo-group">
+            <h3 class="demo-title">Two Column Grid</h3>
+            <span class="property-label">grid-template-columns: 1fr 1fr</span>
+            <div class="grid-container two-col">
+                <div class="grid-item">Item 1</div>
+                <div class="grid-item">Item 2</div>
+                <div class="grid-item">Item 3</div>
+                <div class="grid-item">Item 4</div>
+            </div>
+        </div>
+
+        <!-- Three Column Grid -->
+        <div class="demo-group">
+            <h3 class="demo-title">Three Column Grid</h3>
+            <span class="property-label">grid-template-columns: repeat(3, 1fr)</span>
+            <div class="grid-container three-col">
+                <div class="grid-item">Item 1</div>
+                <div class="grid-item">Item 2</div>
+                <div class="grid-item">Item 3</div>
+                <div class="grid-item">Item 4</div>
+                <div class="grid-item">Item 5</div>
+                <div class="grid-item">Item 6</div>
+            </div>
+        </div>
+
+        <!-- Auto-fit Grid -->
+        <div class="demo-group">
+            <h3 class="demo-title">Responsive Auto-fit Grid</h3>
+            <span class="property-label">grid-template-columns: repeat(auto-fit, minmax(150px, 1fr))</span>
+            <div class="grid-container auto-fit">
+                <div class="grid-item">Auto 1</div>
+                <div class="grid-item">Auto 2</div>
+                <div class="grid-item">Auto 3</div>
+                <div class="grid-item">Auto 4</div>
+                <div class="grid-item">Auto 5</div>
+            </div>
+        </div>
+
+        <!-- Grid Spanning -->
+        <div class="demo-group">
+            <h3 class="demo-title">Grid Column Spanning</h3>
+            <span class="property-label">grid-column: span 2</span>
+            <div class="grid-container three-col">
+                <div class="grid-item span-2">Spans 2 Columns</div>
+                <div class="grid-item">Item 2</div>
+                <div class="grid-item">Item 3</div>
+                <div class="grid-item">Item 4</div>
+                <div class="grid-item">Item 5</div>
+            </div>
+        </div>
+
+        <!-- Grid Template Areas -->
+        <div class="demo-group">
+            <h3 class="demo-title">Grid Template Areas (Layout)</h3>
+            <span class="property-label">grid-template-areas</span>
+            <div class="grid-container template-areas">
+                <div class="grid-item header">Header</div>
+                <div class="grid-item sidebar">Sidebar</div>
+                <div class="grid-item content">Main Content</div>
+                <div class="grid-item aside">Aside</div>
+                <div class="grid-item footer">Footer</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Combined Section -->
+    <div class="section">
+        <h2>3. Combined Flexbox & Grid Layout</h2>
+        <p class="section-description">Combining Grid for overall page structure with Flexbox for component layouts creates powerful, flexible designs.</p>
+
+        <div class="demo-group">
+            <h3 class="demo-title">Sidebar Layout (Grid) + Flex Components</h3>
+            <span class="property-label">Grid container with Flex children</span>
+            <div class="combo-container">
+                <!-- Sidebar with Flex -->
+                <div class="combo-sidebar">
+                    <div class="combo-item nav">Nav 1</div>
+                    <div class="combo-item nav">Nav 2</div>
+                    <div class="combo-item nav">Nav 3</div>
+                    <div class="combo-item nav">Nav 4</div>
+                </div>
+
+                <!-- Main area with Flex and nested Grid -->
+                <div class="combo-main">
+                    <div class="combo-item header">Page Header (Flex)</div>
+                    <div class="combo-cards">
+                        <div class="combo-item card">Card 1</div>
+                        <div class="combo-item card">Card 2</div>
+                        <div class="combo-item card">Card 3</div>
+                        <div class="combo-item card">Card 4</div>
+                        <div class="combo-item card">Card 5</div>
+                        <div class="combo-item card">Card 6</div>
+                    </div>
+                </div>
+            </div>
+            <p style="margin-top: 15px; color: #666; font-size: 14px;">
+                <strong>Structure:</strong> 
+                Outer container uses <code>display: grid</code> for sidebar/main split. 
+                Sidebar uses <code>display: flex</code> with <code>flex-direction: column</code>. 
+                Cards area uses <code>display: grid</code> with <code>auto-fit</code> for responsiveness.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Toggle outlines
+        function toggleOutlines(btn) {
+            document.body.classList.toggle('show-outlines');
+            if (document.body.classList.contains('show-outlines')) {
+                btn.textContent = 'Hide Outlines';
+                btn.classList.remove('inactive');
+                btn.classList.add('active');
+            } else {
+                btn.textContent = 'Show Outlines';
+                btn.classList.remove('active');
+                btn.classList.add('inactive');
+            }
+        }
+
+        // Toggle borders
+        function toggleBorders(btn) {
+            document.body.classList.toggle('hide-borders');
+            if (document.body.classList.contains('hide-borders')) {
+                btn.textContent = 'Show Borders';
+                btn.classList.remove('inactive');
+                btn.classList.add('active');
+            } else {
+                btn.textContent = 'Hide Borders';
+                btn.classList.remove('active');
+                btn.classList.add('inactive');
+            }
+        }
+
+        // Toggle backgrounds
+        function toggleBackgrounds(btn) {
+            document.body.classList.toggle('hide-backgrounds');
+            if (document.body.classList.contains('hide-backgrounds')) {
+                btn.textContent = 'Show Backgrounds';
+                btn.classList.remove('inactive');
+                btn.classList.add('active');
+            } else {
+                btn.textContent = 'Hide Backgrounds';
+                btn.classList.remove('active');
+                btn.classList.add('inactive');
+            }
+        }
+    </script>
+</body>
+</html>

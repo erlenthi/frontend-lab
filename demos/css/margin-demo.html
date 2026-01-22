@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Margin Demo - Box Inside Box</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        /* Control Panel */
+        .control-panel {
+            position: sticky;
+            top: 0;
+            background-color: #2c3e50;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .control-panel h3 {
+            color: white;
+            margin: 0;
+            font-size: 16px;
+            flex: 0 0 100%;
+        }
+
+        .control-btn {
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .control-btn.active {
+            background-color: #27ae60;
+            color: white;
+        }
+
+        .control-btn.inactive {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        /* Box model outline styles */
+        body.show-outlines * {
+            outline: 2px solid rgba(255, 0, 0, 0.5) !important;
+            outline-offset: -1px;
+        }
+
+        body.show-outlines *:hover {
+            outline: 2px solid rgba(0, 255, 0, 0.8) !important;
+        }
+
+        /* Border toggle */
+        body.hide-borders .outer-box,
+        body.hide-borders .inner-box {
+            border: none !important;
+        }
+
+        /* Background toggle */
+        body.hide-backgrounds .outer-box,
+        body.hide-backgrounds .inner-box {
+            background-color: transparent !important;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .demo-container {
+            margin: 20px auto;
+            max-width: 800px;
+        }
+
+        .example {
+            margin-bottom: 40px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .example h2 {
+            margin-top: 0;
+            color: #2c3e50;
+            font-size: 18px;
+        }
+
+        .outer-box {
+            background-color: #3498db;
+            border: 3px solid #2980b9;
+            padding: 20px;
+            margin: 10px 0;
+        }
+
+        .inner-box {
+            background-color: #e74c3c;
+            border: 3px solid #c0392b;
+            padding: 20px;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* Different margin scenarios */
+        .margin-all {
+            margin: 30px;
+        }
+
+        .margin-top {
+            margin-top: 40px;
+        }
+
+        .margin-bottom {
+            margin-bottom: 40px;
+        }
+
+        .margin-horizontal {
+            margin-left: 50px;
+            margin-right: 50px;
+        }
+
+        .margin-auto {
+            margin: 20px auto;
+            width: 60%;
+        }
+
+        .no-margin {
+            margin: 0;
+        }
+
+        /* Demonstration of margin collapse */
+        .collapse-demo .outer-box {
+            background-color: #9b59b6;
+            border-color: #8e44ad;
+        }
+
+        .info {
+            background-color: #ecf0f1;
+            padding: 10px;
+            border-left: 4px solid #3498db;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="control-panel">
+        <h3>🎛️ Demo Controls</h3>
+        <button class="control-btn active" id="toggleBorders" onclick="toggleBorders()">✓ Borders ON</button>
+        <button class="control-btn active" id="toggleBackgrounds" onclick="toggleBackgrounds()">✓ Backgrounds ON</button>
+        <button class="control-btn inactive" id="toggleOutlines" onclick="toggleOutlines()">✗ Box Outlines OFF</button>
+    </div>
+
+    <h1>Understanding Margins: Box Inside Another Box</h1>
+    
+    <div class="demo-container">
+        <!-- Example 1: No margin -->
+        <div class="example">
+            <h2>1. No Margin on Inner Box</h2>
+            <div class="outer-box">
+                Outer Box (Blue)
+                <div class="inner-box no-margin">
+                    Inner Box (Red) - No Margin
+                </div>
+            </div>
+            <div class="info">
+                The inner box touches all edges of the outer box's content area.
+            </div>
+        </div>
+
+        <!-- Example 2: Margin on all sides -->
+        <div class="example">
+            <h2>2. Margin on All Sides (30px)</h2>
+            <div class="outer-box">
+                Outer Box (Blue)
+                <div class="inner-box margin-all">
+                    Inner Box (Red) - margin: 30px
+                </div>
+            </div>
+            <div class="info">
+                The inner box has 30px of space around it on all sides, pushing away from the outer box's content area.
+            </div>
+        </div>
+
+        <!-- Example 3: Top margin only -->
+        <div class="example">
+            <h2>3. Top Margin Only (40px)</h2>
+            <div class="outer-box">
+                Outer Box (Blue)
+                <div class="inner-box margin-top">
+                    Inner Box (Red) - margin-top: 40px
+                </div>
+            </div>
+            <div class="info">
+                Only the top has spacing. The inner box is pushed down 40px from the top edge.
+            </div>
+        </div>
+
+        <!-- Example 4: Bottom margin only -->
+        <div class="example">
+            <h2>4. Bottom Margin Only (40px)</h2>
+            <div class="outer-box">
+                Outer Box (Blue)
+                <div class="inner-box margin-bottom">
+                    Inner Box (Red) - margin-bottom: 40px
+                </div>
+            </div>
+            <div class="info">
+                The bottom margin creates space below the inner box within the outer box.
+            </div>
+        </div>
+
+        <!-- Example 5: Horizontal margins -->
+        <div class="example">
+            <h2>5. Horizontal Margins (50px left and right)</h2>
+            <div class="outer-box">
+                Outer Box (Blue)
+                <div class="inner-box margin-horizontal">
+                    Inner Box (Red) - margin-left & right: 50px
+                </div>
+            </div>
+            <div class="info">
+                Left and right margins push the inner box away from the sides.
+            </div>
+        </div>
+
+        <!-- Example 6: Auto margin (centering) -->
+        <div class="example">
+            <h2>6. Auto Horizontal Margin (Centering)</h2>
+            <div class="outer-box">
+                Outer Box (Blue)
+                <div class="inner-box margin-auto">
+                    Inner Box (Red) - margin: 20px auto; width: 60%
+                </div>
+            </div>
+            <div class="info">
+                Using "margin: auto" with a set width centers the inner box horizontally. Top/bottom margins are 20px.
+            </div>
+        </div>
+
+        <!-- Example 7: Margin collapse demonstration -->
+        <div class="example collapse-demo">
+            <h2>7. Margin Collapse Behavior</h2>
+            <div class="outer-box">
+                Outer Box (Purple) - No padding on top
+                <div class="inner-box margin-top">
+                    Inner Box (Red) - margin-top: 40px
+                </div>
+            </div>
+            <div class="info">
+                ⚠️ Note: If the outer box had no padding or border, the top margin of the inner box would "collapse" and push the outer box down instead! This is called margin collapse.
+            </div>
+        </div>
+
+        <!-- Key Points -->
+        <div class="example">
+            <h2>📚 Key Points About Margins</h2>
+            <ul>
+                <li><strong>Margins create space</strong> around an element, outside its border.</li>
+                <li><strong>Margins push elements away</strong> from their neighbors or container edges.</li>
+                <li><strong>Margin collapse:</strong> Vertical margins between elements can collapse into a single margin.</li>
+                <li><strong>Auto margins:</strong> Can be used to center block elements horizontally.</li>
+                <li><strong>Negative margins:</strong> Can pull elements closer or create overlaps (not shown here).</li>
+                <li><strong>Padding vs Margin:</strong> Padding is inside the border, margin is outside the border.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function toggleBorders() {
+            const btn = document.getElementById('toggleBorders');
+            document.body.classList.toggle('hide-borders');
+            
+            if (document.body.classList.contains('hide-borders')) {
+                btn.textContent = '✗ Borders OFF';
+                btn.classList.remove('active');
+                btn.classList.add('inactive');
+            } else {
+                btn.textContent = '✓ Borders ON';
+                btn.classList.remove('inactive');
+                btn.classList.add('active');
+            }
+        }
+
+        function toggleBackgrounds() {
+            const btn = document.getElementById('toggleBackgrounds');
+            document.body.classList.toggle('hide-backgrounds');
+            
+            if (document.body.classList.contains('hide-backgrounds')) {
+                btn.textContent = '✗ Backgrounds OFF';
+                btn.classList.remove('active');
+                btn.classList.add('inactive');
+            } else {
+                btn.textContent = '✓ Backgrounds ON';
+                btn.classList.remove('inactive');
+                btn.classList.add('active');
+            }
+        }
+
+        function toggleOutlines() {
+            const btn = document.getElementById('toggleOutlines');
+            document.body.classList.toggle('show-outlines');
+            
+            if (document.body.classList.contains('show-outlines')) {
+                btn.textContent = '✓ Box Outlines ON';
+                btn.classList.remove('inactive');
+                btn.classList.add('active');
+            } else {
+                btn.textContent = '✗ Box Outlines OFF';
+                btn.classList.remove('active');
+                btn.classList.add('inactive');
+            }
+        }
+    </script>
+</body>
+</html>
