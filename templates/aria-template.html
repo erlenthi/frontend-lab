@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARIA Template - Accessible Rich Internet Applications</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px 5px;
+            cursor: pointer;
+        }
+
+        .live-region {
+            border: 2px solid #3498db;
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #ecf0f1;
+            min-height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <!-- BASIC ARIA LANDMARKS -->
+    <!-- Use semantic HTML when possible (header, nav, main, aside, footer) -->
+    <!-- role="banner" is implicit in <header> -->
+    <header role="banner">
+        <h1>ARIA Template</h1>
+        <!-- role="navigation" is implicit in <nav> -->
+        <nav role="navigation" aria-label="Main navigation">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- role="main" is implicit in <main> -->
+    <main role="main">
+        
+        <!-- ARIA LIVE REGIONS -->
+        <section>
+            <h2>ARIA Live Regions</h2>
+            
+            <!-- POLITE: Waits for user to finish current task -->
+            <div class="live-region" 
+                 aria-live="polite" 
+                 aria-atomic="true">
+                Status updates will appear here (polite)
+            </div>
+            
+            <!-- ASSERTIVE: Interrupts immediately -->
+            <!-- <div class="live-region" 
+                 aria-live="assertive" 
+                 aria-atomic="true">
+                Critical alerts appear here (assertive)
+            </div> -->
+            
+            <!-- OFF: No announcements (default) -->
+            <!-- <div class="live-region" 
+                 aria-live="off">
+                Silent updates (not announced)
+            </div> -->
+            
+            <!-- ARIA-ATOMIC: Announce entire region vs only changes -->
+            <!-- aria-atomic="true" - announces whole region -->
+            <!-- aria-atomic="false" - announces only changed parts (default) -->
+            
+            <!-- ARIA-RELEVANT: What types of changes to announce -->
+            <!-- aria-relevant="additions" - only new content -->
+            <!-- aria-relevant="removals" - only removed content -->
+            <!-- aria-relevant="text" - only text changes -->
+            <!-- aria-relevant="all" - all changes -->
+            <!-- aria-relevant="additions text" - multiple values (default) -->
+            
+            <!-- ROLE-SPECIFIC LIVE REGIONS -->
+            
+            <!-- ALERT: Assertive, atomic, important message -->
+            <!-- <div role="alert">
+                Error: Form submission failed
+            </div> -->
+            
+            <!-- STATUS: Polite, atomic, advisory info -->
+            <!-- <div role="status">
+                3 items in cart
+            </div> -->
+            
+            <!-- LOG: Polite, sequential info (chat, history) -->
+            <!-- <div role="log" aria-live="polite">
+                <p>User joined at 10:30</p>
+                <p>Message received at 10:31</p>
+            </div> -->
+            
+            <!-- TIMER: Polite or off, numeric counter -->
+            <!-- <div role="timer" aria-live="off">
+                <span id="timer">10:00</span>
+            </div> -->
+            
+            <!-- MARQUEE: Assertive or off, non-essential updates -->
+            <!-- <div role="marquee" aria-live="off">
+                Breaking news ticker
+            </div> -->
+            
+            <button onclick="updateLiveRegion()">Update Status</button>
+        </section>
+
+        <!-- COMMON ARIA ATTRIBUTES -->
+        <section>
+            <h2>Common ARIA Attributes</h2>
+            
+            <!-- LABELS AND DESCRIPTIONS -->
+            
+            <!-- aria-label: Accessible name -->
+            <button aria-label="Close dialog">X</button>
+            
+            <!-- aria-labelledby: Reference to element(s) providing label -->
+            <!-- <h2 id="dialog-title">Confirmation</h2>
+            <div role="dialog" aria-labelledby="dialog-title">
+                Dialog content
+            </div> -->
+            
+            <!-- aria-describedby: Additional description -->
+            <!-- <input type="password" 
+                   aria-describedby="password-hint">
+            <span id="password-hint">Must be 8+ characters</span> -->
+            
+            <!-- STATES -->
+            
+            <!-- aria-expanded: Collapsible content state -->
+            <!-- <button aria-expanded="false" aria-controls="menu">
+                Menu
+            </button>
+            <ul id="menu" hidden>
+                <li>Option 1</li>
+            </ul> -->
+            
+            <!-- aria-hidden: Hide from screen readers -->
+            <!-- <span aria-hidden="true">★</span>
+            <span class="visually-hidden">5 stars</span> -->
+            
+            <!-- aria-disabled: Disabled but focusable -->
+            <!-- <button aria-disabled="true">Save</button> -->
+            
+            <!-- aria-selected: Selected state in list/tab -->
+            <!-- <div role="tab" aria-selected="true">Tab 1</div> -->
+            
+            <!-- aria-checked: Checkbox/radio state -->
+            <!-- <div role="checkbox" aria-checked="true">Option</div> -->
+            
+            <!-- aria-pressed: Toggle button state -->
+            <!-- <button aria-pressed="false">Bold</button> -->
+            
+            <!-- aria-current: Current item in set -->
+            <!-- <a href="/page" aria-current="page">Current Page</a> -->
+            <!-- aria-current="step | location | page | date | time | true" -->
+            
+            <!-- PROPERTIES -->
+            
+            <!-- aria-required: Required field -->
+            <!-- <input type="text" aria-required="true"> -->
+            
+            <!-- aria-invalid: Validation state -->
+            <!-- <input type="email" aria-invalid="true" aria-describedby="email-error">
+            <span id="email-error">Invalid email format</span> -->
+            
+            <!-- aria-readonly: Read-only field -->
+            <!-- <input type="text" aria-readonly="true" value="Fixed value"> -->
+            
+            <!-- aria-haspopup: Element triggers popup -->
+            <!-- <button aria-haspopup="menu">Options</button> -->
+            <!-- aria-haspopup="menu | listbox | tree | grid | dialog | true" -->
+            
+            <!-- aria-controls: Element controls another -->
+            <!-- <button aria-controls="content-panel" aria-expanded="false">
+                Show More
+            </button>
+            <div id="content-panel" hidden>Content</div> -->
+            
+            <!-- aria-owns: Establishes parent-child relationship -->
+            <!-- <div role="listbox" aria-owns="external-option">
+                <div role="option">Option 1</div>
+            </div>
+            <div id="external-option" role="option">Option 2</div> -->
+        </section>
+
+        <!-- ARIA ROLES -->
+        <section>
+            <h2>Common ARIA Roles</h2>
+            
+            <!-- DOCUMENT STRUCTURE ROLES -->
+            <!-- role="article | complementary | contentinfo | definition | directory | document | feed | figure | group | heading | img | list | listitem | math | note | presentation | region | separator | table | toolbar" -->
+            
+            <!-- WIDGET ROLES -->
+            <!-- role="button | checkbox | gridcell | link | menuitem | menuitemcheckbox | menuitemradio | option | progressbar | radio | scrollbar | searchbox | slider | spinbutton | switch | tab | tabpanel | textbox | treeitem" -->
+            
+            <!-- COMPOSITE ROLES -->
+            <!-- role="combobox | grid | listbox | menu | menubar | radiogroup | tablist | tree | treegrid" -->
+            
+            <!-- LANDMARK ROLES (prefer semantic HTML) -->
+            <!-- role="banner | complementary | contentinfo | form | main | navigation | region | search" -->
+            
+            <!-- Example: Custom button -->
+            <!-- <div role="button" tabindex="0" 
+                 aria-pressed="false"
+                 onkeydown="if(event.key==='Enter'||event.key===' ')this.click()">
+                Toggle
+            </div> -->
+            
+            <!-- Example: Tab interface -->
+            <!-- <div role="tablist" aria-label="Sample tabs">
+                <button role="tab" aria-selected="true" aria-controls="panel1" id="tab1">
+                    Tab 1
+                </button>
+                <button role="tab" aria-selected="false" aria-controls="panel2" id="tab2">
+                    Tab 2
+                </button>
+            </div>
+            <div role="tabpanel" id="panel1" aria-labelledby="tab1">
+                Panel 1 content
+            </div>
+            <div role="tabpanel" id="panel2" aria-labelledby="tab2" hidden>
+                Panel 2 content
+            </div> -->
+        </section>
+
+        <!-- FORM ACCESSIBILITY -->
+        <section>
+            <h2>Form Accessibility</h2>
+            
+            <!-- Use native HTML elements when possible -->
+            <form>
+                <!-- Label association -->
+                <label for="username">Username</label>
+                <input type="text" id="username" required>
+                
+                <!-- Fieldset for grouped inputs -->
+                <!-- <fieldset>
+                    <legend>Contact Method</legend>
+                    <input type="radio" id="email" name="contact" value="email">
+                    <label for="email">Email</label>
+                    <input type="radio" id="phone" name="contact" value="phone">
+                    <label for="phone">Phone</label>
+                </fieldset> -->
+                
+                <!-- Error announcement -->
+                <!-- <input type="email" 
+                       id="user-email" 
+                       aria-invalid="true" 
+                       aria-describedby="email-error"
+                       aria-errormessage="email-error">
+                <span id="email-error" role="alert">
+                    Please enter a valid email address
+                </span> -->
+            </form>
+        </section>
+    </main>
+
+    <!-- role="contentinfo" is implicit in <footer> -->
+    <footer role="contentinfo">
+        <p>Footer content</p>
+    </footer>
+
+    <script>
+        // Example: Update live region
+        function updateLiveRegion() {
+            const liveRegion = document.querySelector('[aria-live="polite"]');
+            liveRegion.textContent = `Updated at ${new Date().toLocaleTimeString()}`;
+        }
+
+        // Example: Announce message to screen reader
+        function announceMessage(message, priority = 'polite') {
+            const announcement = document.createElement('div');
+            announcement.setAttribute('aria-live', priority);
+            announcement.setAttribute('aria-atomic', 'true');
+            announcement.className = 'visually-hidden';
+            announcement.textContent = message;
+            document.body.appendChild(announcement);
+            
+            // Remove after announcement
+            setTimeout(() => {
+                document.body.removeChild(announcement);
+            }, 1000);
+        }
+
+        // Example usage:
+        // announceMessage('Item added to cart', 'polite');
+        // announceMessage('Error occurred!', 'assertive');
+    </script>
+</body>
+</html>

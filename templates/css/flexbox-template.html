@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Flexbox Template</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* BARE MINIMUM FLEXBOX CONTAINER */
+        .flex-container {
+            display: flex;
+            gap: 20px;
+            /* EXTRA OPTIONS - Uncomment as needed */
+            
+            /* Direction */
+            /* flex-direction: row | row-reverse | column | column-reverse; */
+            
+            /* Wrapping */
+            /* flex-wrap: nowrap | wrap | wrap-reverse; */
+            
+            /* Shorthand for direction and wrap */
+            /* flex-flow: row wrap; */
+            
+            /* Main axis alignment (horizontal if row, vertical if column) */
+            /* justify-content: flex-start | flex-end | center | space-between | space-around | space-evenly; */
+            
+            /* Cross axis alignment (vertical if row, horizontal if column) */
+            /* align-items: flex-start | flex-end | center | stretch | baseline; */
+            
+            /* Multi-line alignment (when wrapped) */
+            /* align-content: flex-start | flex-end | center | stretch | space-between | space-around | space-evenly; */
+        }
+
+        /* FLEX ITEMS - EXTRA OPTIONS */
+        .flex-item {
+            background-color: #3498db;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px;
+            
+            /* Growth and shrinking */
+            /* flex-grow: 1; */ /* grow to fill available space */
+            /* flex-shrink: 1; */ /* allow shrinking (default) */
+            /* flex-basis: auto | 200px | 50%; */ /* base size before growing/shrinking */
+            
+            /* Shorthand for grow, shrink, basis */
+            /* flex: 1; */ /* flex-grow: 1, flex-shrink: 1, flex-basis: 0% */
+            /* flex: 0 0 auto; */ /* don't grow or shrink */
+            /* flex: 1 1 auto; */ /* grow and shrink based on content */
+            
+            /* Self alignment (overrides container's align-items) */
+            /* align-self: auto | flex-start | flex-end | center | stretch | baseline; */
+            
+            /* Order */
+            /* order: 0; */ /* change visual order (default is 0) */
+        }
+
+        /* Example specific item styling */
+        /* .flex-item:nth-child(1) {
+            flex: 2;
+        }
+        
+        .flex-item:nth-child(2) {
+            flex: 1;
+            align-self: center;
+        }
+        
+        .flex-item:nth-child(3) {
+            order: -1;
+        } */
+
+        /* RESPONSIVE FLEXBOX */
+        /* @media (max-width: 768px) {
+            .flex-container {
+                flex-direction: column;
+            }
+        } */
+
+        /* COMMON PATTERNS */
+        
+        /* Equal width items */
+        /* .flex-item {
+            flex: 1;
+        } */
+        
+        /* Center content horizontally and vertically */
+        /* .flex-container {
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        } */
+        
+        /* Space between with wrapping */
+        /* .flex-container {
+            flex-wrap: wrap;
+            justify-content: space-between;
+        } */
+        
+        /* Column layout */
+        /* .flex-container {
+            flex-direction: column;
+        } */
+        
+        /* Sticky footer pattern */
+        /* body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main {
+            flex: 1;
+        } */
+        
+        /* Holy grail layout */
+        /* .flex-container {
+            flex-wrap: wrap;
+        }
+        header, footer {
+            flex: 1 100%;
+        }
+        aside {
+            flex: 1;
+        }
+        main {
+            flex: 2;
+        } */
+        
+        /* Navigation bar */
+        /* .flex-container {
+            justify-content: space-between;
+            align-items: center;
+        } */
+        
+        /* Card layout with equal heights */
+        /* .flex-container {
+            flex-wrap: wrap;
+        }
+        .flex-item {
+            flex: 1 1 300px;
+        } */
+    </style>
+</head>
+<body>
+    <div class="flex-container">
+        <div class="flex-item">1</div>
+        <div class="flex-item">2</div>
+        <div class="flex-item">3</div>
+        <div class="flex-item">4</div>
+        <div class="flex-item">5</div>
+        <div class="flex-item">6</div>
+    </div>
+</body>
+</html>
