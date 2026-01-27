@@ -38,6 +38,12 @@
 
     }
 
+    .column:nth-child(5) {
+        display: flex; 
+        flex-direction: column;
+        align-items: center;
+    }
+
     .grid-item {
       background: lightcoral;
       border: 2px solid darkred;
@@ -94,13 +100,12 @@
     }
 
     .list-column ul {
+        flex: 1;
         display: flex; 
-        flex-direction: column; 
-        height: 50%;
-        width: max-content;  /* Grows to fit content. Width: 100% fills available space but prevents growing with overflow,  */
         flex-direction: column;
         align-content: center;
         border: 5px solid black;
+
     }
 
     .list-column li {
@@ -115,7 +120,7 @@
         align-content: center;
         display: flex; 
         flex-direction: row; 
-        flex-wrap: wrap;
+        min-height: 100px; 
         width: 100%;
     }
 
@@ -123,7 +128,6 @@
     .list-column li .grid-item  {
         flex: 1;
         border: 10px solid black;
-
     }
     /*Only selecting grid items that are directly inside a list column*/
     .list-column > ul > .grid-item {
@@ -136,11 +140,30 @@
     }
     /*Selects ULs of the class scrollable*/
     ul.scrollable {
-        width: 100%;
+        flex: 1;
+        /*Scrolling will not appear unless we cause overflow by limiting the size of the UL, which by default grows*/
         overflow:auto;
         background-color: blue;
     }
 
+    ul.scrollable > .grid-item {
+        overflow: auto; 
+    }
+ 
+    /* Styles for second grid-item in each ul */
+    .new-item {
+        background: orange; 
+        border: 10 px solid black; 
+          flex: 1;              /* Grows to fill available height */
+
+    }
+
+    ul:not(.scrollable) {
+       /* Grows to fit content. Width: 100% fills available space but prevents growing with overflow,  */
+      width:max-content;
+      flex: 1;
+    }
+ 
   </style>
 
   <body>
@@ -164,7 +187,7 @@
         <div class="grid-item"></div>
     </div>
       
-    </div>
+  
     <div class="column nested-column">
         
         <div class = "flex-row">
@@ -218,12 +241,15 @@
                 Test
             </li>
             <li>
-                Testbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+                Testbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
             </li>
-            <div class="grid-item flex-item"></div>
+            <div class="grid-item flex-item">Living in a box. Living in a cardboard box Living in a box. Living in a cardboard box Living in a box. Living in a cardboard box Living in a box. Living in a cardboard box </div>
             <li>
                 Test
                 <div class="grid-item flex-item"></div>
+            </li>
+            <li>
+                <div class="new-item"></div>
             </li>
 
         </ul>
@@ -235,7 +261,7 @@
             <li>
                 Testbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
             </li>
-            <div class="grid-item flex-item"></div>
+            <div class="grid-item flex-item">Living in a box. Living in a cardboard box Living in a box. Living in a cardboard box Living in a box. Living in a cardboard box Living in a box. Living in a cardboard box</div>
             <li>
                 Test
                 <div class="grid-item flex-item"></div>
