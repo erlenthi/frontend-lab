@@ -51,7 +51,7 @@
     }
 
     .flex-row {
-        flex: 1; 
+        flex: 0.5; 
         display: flex; 
         flex-direction:row;
 
@@ -60,6 +60,87 @@
         flex: 1; 
 
     }
+
+    
+
+    .special-row {
+        flex: 2;
+        gap: 5px;
+    }
+
+    .special-row2 {
+        flex: 0 0 auto;
+        height: 100px; 
+        width: 1000px;
+        gap: 5px;
+        justify-content: space-around;
+    }
+
+    .flex-row:not(.special-row2 .special-row) .flex-item {
+    /* flex-items NOT in special-row2 */
+        flex: 1; 
+    }
+    /*Only selecting flex items inside special-row2 */
+    .special-row2 .flex-item {
+        background: lightcoral;
+        border: 2px solid darkred;
+        scroll-snap-align: start; 
+        flex: none; 
+        width: 100px;  /* reasonable size */
+    }
+
+    .list-column {
+        font-size: 50px;
+    }
+
+    .list-column ul {
+        display: flex; 
+        flex-direction: column; 
+        height: 50%;
+        width: max-content;  /* Grows to fit content. Width: 100% fills available space but prevents growing with overflow,  */
+        flex-direction: column;
+        align-content: center;
+        border: 5px solid black;
+    }
+
+    .list-column li {
+        flex: 1;
+        /*Distributes the empty space to before and after content. This will only affect the top line with only small text because the other lines are 
+        either a long text that uses up it's whole space or flexing boxes */
+        justify-content: space-around;
+        /*Align self determines position of li inside ul*/
+        align-self: center;
+        /*Alisgn-content determines position of flex items inside flexbox. This only works on the bottom li that has both a div container and text. 
+        The div container will align with the height of the Text*/
+        align-content: center;
+        display: flex; 
+        flex-direction: row; 
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    /*Selects grid items inside list items inside list-column */
+    .list-column li .grid-item  {
+        flex: 1;
+        border: 10px solid black;
+
+    }
+    /*Only selecting grid items that are directly inside a list column*/
+    .list-column > ul > .grid-item {
+        flex: 1;
+        border: 10px solid black;
+        align-self: center;
+        width: 40%;
+        /*Visibility hidden will just make the element invisible. Visiblity collapse will make it so that it's like the element was completely removed*/
+    
+    }
+    /*Selects ULs of the class scrollable*/
+    ul.scrollable {
+        width: 100%;
+        overflow:auto;
+        background-color: blue;
+    }
+
   </style>
 
   <body>
@@ -94,7 +175,14 @@
         <div class="flex-item grid-item"></div>
         <div class="flex-item grid-item"></div>
         </div>
-        <div class = "flex-row">
+        <div class = "flex-row special-row2">
+        <div class="flex-item"></div>
+        <div class="flex-item"></div>
+        </div>
+        <div class = "flex-row special-row">
+        <div class="flex-item grid-item"></div>
+        <div class="flex-item grid-item"></div>
+        <div class="flex-item grid-item"></div>
         <div class="flex-item grid-item"></div>
         <div class="flex-item grid-item"></div>
         </div>
@@ -118,14 +206,44 @@
         <div class="flex-item grid-item"></div>
         <div class="flex-item grid-item"></div>
         </div>
-        <div class = "flex-row">
+        <!--One flex-item takes as much height as one flex-row when both have flex: 1-->
         <div class="flex-item grid-item"></div>
-        <div class="flex-item grid-item"></div>
-        </div>
         <div class="flex-item grid-item"></div>
         <div class="flex-item grid-item"></div>
     </div>
-    <div class="column"></div>
+    <div class="column list-column">
+        <!---->
+        <ul>
+            <li>
+                Test
+            </li>
+            <li>
+                Testbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+            </li>
+            <div class="grid-item flex-item"></div>
+            <li>
+                Test
+                <div class="grid-item flex-item"></div>
+            </li>
+
+        </ul>
+
+        <ul class = "scrollable">
+            <li>
+                Test
+            </li>
+            <li>
+                Testbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+            </li>
+            <div class="grid-item flex-item"></div>
+            <li>
+                Test
+                <div class="grid-item flex-item"></div>
+            </li>
+
+        </ul>
+
+    </div>
   </body>
 
   <script>
