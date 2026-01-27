@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Layout Template</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        /* HEADER & NAVIGATION */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #34495e;
+        }
+
+        /* Alternative: Vertical navigation */
+        /* nav ul {
+            flex-direction: column;
+            gap: 0.5rem;
+        } */
+
+        /* Alternative: Center aligned navigation */
+        /* nav {
+            justify-content: center;
+        } */
+
+        /* MAIN CONTENT */
+        main {
+            flex: 1; /* Takes up remaining space, pushes footer down */
+            padding: 2rem;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+        }
+
+        /* SIDEBAR */
+        aside {
+            background-color: #ecf0f1;
+            padding: 1rem;
+            max-height: calc(100vh - 200px); /* Adjust based on header/footer height */
+            overflow-y: auto;
+ 
+            position: sticky;
+            top: 2rem;
+
+            
+            border-radius: 5px;
+        }
+
+        /* Scrollbar styling (optional) */
+        aside::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        aside::-webkit-scrollbar-track {
+            background: #d5d8dc;
+            border-radius: 4px;
+        }
+
+        aside::-webkit-scrollbar-thumb {
+            background: #95a5a6;
+            border-radius: 4px;
+        }
+
+        aside::-webkit-scrollbar-thumb:hover {
+            background: #7f8c8d;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-top: auto; /* Alternative to flex: 1 on main */
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .footer-links a {
+            color: #ecf0f1;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+                width: 100%;
+                text-align: center;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+
+        /* ALTERNATIVE LAYOUTS */
+
+        /* Grid-based layout */
+        /* body {
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            min-height: 100vh;
+        } */
+
+        /* Sidebar layout */
+        /* main {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+        }
+        
+        aside {
+            background-color: #ecf0f1;
+            padding: 1rem;
+        } */
+
+        /* Fixed header */
+        /* header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        
+        main {
+            margin-top: 80px;
+        } */
+    </style>
+</head>
+<body>
+    <!-- HEADER WITH NAVIGATION -->
+    <header>
+        <nav>
+            <div class="logo">Your Logo</div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT AREA -->
+    <main>
+        <aside>
+            <h3>Sidebar</h3>
+            <p>Sidebar content</p>
+            <ul>
+                <li><a href="#link1">Link 1</a></li>
+                <li><a href="#link2">Link 2</a></li>
+                <li><a href="#link3">Link 3</a></li>
+                <li><a href="#link4">Link 4</a></li>
+                <li><a href="#link5"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras fringilla tortor sit amet ornare volutpat. Duis suscipit dolor metus, nec facilisis eros aliquam eu. Pellentesque in nisi at dui fermentum elementum. Donec auctor elit id arcu bibendum laoreet. Aenean dapibus a orci vitae ultricies. Donec pulvinar metus felis, a hendrerit ipsum auctor quis. Sed non laoreet sapien. Quisque vitae erat quis nunc rutrum venenatis. Phasellus lacus sapien, sollicitudin sed diam vel, dignissim faucibus magna. Duis auctor vel sem et fermentum.
+
+Etiam nulla urna, euismod vitae venenatis nec, venenatis vitae nibh. Integer semper augue ut nibh feugiat, ac vulputate mauris condimentum. Sed ligula ex, dignissim a semper sed, ullamcorper in nibh. Proin et turpis condimentum, aliquam libero id, vulputate sapien. Curabitur in tellus et ante sodales blandit vitae sit amet quam. In quis nibh sed ligula semper tempor. Etiam sed mauris elementum, volutpat erat ullamcorper, blandit arcu.
+
+Proin pretium libero vitae efficitur suscipit. Mauris porta ante risus, vel mollis lectus lacinia ac. Sed condimentum felis dui, ut lobortis augue tincidunt id. Pellentesque maximus nisl vel imperdiet congue. Cras sed ex lacus. Morbi vel sagittis augue. In id velit cursus, commodo ligula et, ultrices odio. Nulla mattis nisi neque, nec posuere dolor eleifend vitae.
+
+Nullam commodo, arcu nec sodales lobortis, elit magna lobortis lectus, eget hendrerit magna massa sed lorem. Suspendisse erat ex, aliquam viverra pharetra nec, feugiat non libero. Aenean odio turpis, suscipit nec magna sit amet, tincidunt egestas turpis. Sed consequat leo felis, ac fermentum nunc aliquam at. Phasellus ipsum eros, finibus a dui a, sodales feugiat tortor. Vivamus sed vehicula mauris. Sed ut sem consequat, auctor eros id, maximus lorem. Nulla facilisi. Aliquam viverra non nisi elementum rutrum. Integer bibendum, nibh nec posuere auctor, orci nisi gravida massa, sed pellentesque dui enim et metus. Nunc mattis neque elit, vel pretium metus maximus vel. </a></li>
+            </ul>
+        </aside>
+        <div class="content">
+            <h1>Welcome to Your Website</h1>
+            <p>This is the main content area. Add your content here.</p>
+            
+            <section>
+                <h2>Section Title</h2>
+                <p>Section content goes here.</p>
+            </section>
+
+            <section>
+                <h2>Another Section</h2>
+                <p>More content here.</p>
+            </section>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Your Company Name. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#privacy">Privacy Policy</a>
+                <a href="#terms">Terms of Service</a>
+                <a href="#contact">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
